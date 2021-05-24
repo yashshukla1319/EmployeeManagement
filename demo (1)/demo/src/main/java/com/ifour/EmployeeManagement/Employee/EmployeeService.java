@@ -30,7 +30,6 @@ public class EmployeeService {
             throw new IllegalStateException("Id already present.");
         }
         employeeRepository.save(employee);
-        //System.out.println(employee);
     }
 
     public void deleteEmployee(Integer employeeId) {

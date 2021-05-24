@@ -30,11 +30,7 @@ public class DepartmentService {
     }
 
     public void addDepartment(Department department) {
-        Optional<Department> getEmployeeByD_id =departmentRepository.find);
-        if(getEmployeeByD_id == null)
-        {
-            throw new IllegalStateException("Employees with does not exist");
-        }
+        departmentRepository.save(department);
 
     }
 
