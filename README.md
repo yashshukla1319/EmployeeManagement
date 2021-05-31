@@ -3,21 +3,21 @@
 # **Iteration 1**
 
 ## *APIs*
-#### CRUD for employee API
+#### CRUD for employee REST API
 - CRUD for a single employee
 - Get employees by list of IDs
 - Employee search by criteria ( name, department )
 - Paginated employee search
 
-#### CRUD for department API
+#### CRUD for department REST API
 - CRUD for single department
 - API to add and remove employees in a department
   - Check if the employee exists in any other department or not
 
-#### Payroll API
+#### Payroll REST API
 - For counting salary based on number of unpaid leaves
 
-#### Analytics API
+#### Analytics REST API
 - Total salary payout by department
 - Average paid and unpaid leaves by department
 
@@ -31,6 +31,7 @@
 - Github
 - JUnit
 - Maven
+- cUrl / Postman
 
 ## *Recommendations*
 - Use streams and lambdas for all collection operations
