@@ -1,13 +1,14 @@
 package com.ifour.EmployeeManagement.Payroll;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import java.io.UnsupportedEncodingException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,9 +21,10 @@ class PayrollControllerTest {
     @AfterEach
     void tearDown() {
     }
-
+    @Autowired
+    private MockMvc mvc;
     @Test
-    void getPayroll() throws UnsupportedEncodingException {
+    byte getPayroll() throws Exception {
         String uri = "/";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
@@ -31,11 +33,12 @@ class PayrollControllerTest {
         assertEquals(200, status);
         String content = mvcResult.getResponse().getContentAsString();
         //Product[] productlist = super.mapFromJson(content, Product[].class);
-        assertTrue(getPayroll());
+        assertEquals(content,getPayroll());
+        return 0;
     }
 
     @Test
-    void getPayrollByE_id() throws UnsupportedEncodingException {
+    byte getPayrollByE_id() throws Exception {
         String uri = "/products";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
@@ -44,11 +47,12 @@ class PayrollControllerTest {
         assertEquals(200, status);
         String content = mvcResult.getResponse().getContentAsString();
         //Product[] productlist = super.mapFromJson(content, Product[].class);
-        assertTrue(content,E_id != 0);
+        assertEquals(content,getPayrollByE_id());
+        return 0;
     }
 
     @Test
-    void addPayroll() throws UnsupportedEncodingException {
+    void addPayroll() throws Exception {
         String uri = "/products";
         Payroll payroll = new Payroll();
         payroll.setE_id();
@@ -56,8 +60,8 @@ class PayrollControllerTest {
         payroll.setAllowance(7000);
         payroll.setBasic(6500);
 
-
-        String inputJson = super.mapToJson(payroll);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String inputJson = objectMapper.writeValueAsString(payroll);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
 
@@ -68,7 +72,7 @@ class PayrollControllerTest {
     }
 
     @Test
-    void deletePayroll() throws UnsupportedEncodingException {
+    void deletePayroll() throws Exception {
         String uri = "/products/2";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)).andReturn();
         int status = mvcResult.getResponse().getStatus();
@@ -78,7 +82,7 @@ class PayrollControllerTest {
     }
 
     @Test
-    void updatePayroll() throws UnsupportedEncodingException {
+    void updatePayroll() throws Exception {
         String uri = "/products/2";
         Payroll payroll = new Payroll();
         payroll.setBasic(5000);
@@ -86,7 +90,8 @@ class PayrollControllerTest {
         payroll.setDeduction(3000);
         payroll.setE_id();
 
-        String inputJson = super.mapToJson(payroll);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String inputJson = objectMapper.writeValueAsString(payroll);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
 
