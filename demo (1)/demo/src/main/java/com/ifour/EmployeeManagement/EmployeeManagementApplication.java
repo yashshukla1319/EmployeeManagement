@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages={"com.ifour.EmployeeManagement.Employee.EmployeeService"})
 public class EmployeeManagementApplication {
 
 	public static void main(String[] args) {
