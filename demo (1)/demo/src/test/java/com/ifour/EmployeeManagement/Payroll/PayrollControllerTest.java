@@ -24,7 +24,7 @@ class PayrollControllerTest {
     @Autowired
     private MockMvc mvc;
     @Test
-    byte getPayroll() throws Exception {
+    void getPayroll() throws Exception {
         String uri = "/";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
@@ -33,12 +33,12 @@ class PayrollControllerTest {
         assertEquals(200, status);
         String content = mvcResult.getResponse().getContentAsString();
         //Product[] productlist = super.mapFromJson(content, Product[].class);
-        assertEquals(content,getPayroll());
-        return 0;
+        assertEquals(content,"Get payroll");
+
     }
 
     @Test
-    byte getPayrollByE_id() throws Exception {
+    void getPayrollByE_id() throws Exception {
         String uri = "/products";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
@@ -47,8 +47,7 @@ class PayrollControllerTest {
         assertEquals(200, status);
         String content = mvcResult.getResponse().getContentAsString();
         //Product[] productlist = super.mapFromJson(content, Product[].class);
-        assertEquals(content,getPayrollByE_id());
-        return 0;
+        assertEquals(content,"Get payroll by ID");
     }
 
     @Test
