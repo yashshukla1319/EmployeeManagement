@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/payroll")
 public class PayrollController {
     @Autowired
     public PayrollService payrollService;
