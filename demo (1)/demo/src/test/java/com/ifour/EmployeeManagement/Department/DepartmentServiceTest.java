@@ -1,22 +1,26 @@
 package com.ifour.EmployeeManagement.Department;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.io.UnsupportedEncodingException;
-
-import static org.junit.jupiter.api.Assertions.*;
 @WebMvcTest(DepartmentService.class)
 class DepartmentServiceTest {
+    @InjectMocks
+    private DepartmentService departmentService;
+
+    @MockBean
+    private DepartmentRepository departmentRepository;
 
     @BeforeEach
     void setUp() {
@@ -30,17 +34,19 @@ class DepartmentServiceTest {
     void updateDepartment() throws Exception {
         String uri = "/2";
         Department department = new Department();
-        department.setDept_name("");
+        department.setDept_name("testing");
 
         ObjectMapper objectMapper = new ObjectMapper();
         String inputJson = objectMapper.writeValueAsString(department);
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri)
-                .contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
+        this.mvc.perform(MockMvcRequestBuilders.put(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andExpect(MockMvcResultMatchers.status().isOk());
 
+        /*
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
-        //String content = mvcResult.getResponse().getContentAsString();
-        //assertEquals(content, "Payroll is updated successsfully");
+        String content = mvcResult.getResponse().getContentAsString();
+        assertEquals(content, "Payroll is updated successsfully");
+        */
     }
 
     @Autowired
@@ -55,35 +61,42 @@ class DepartmentServiceTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String inputJson = objectMapper.writeValueAsString(department);
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
-                .contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
+        this.mvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andExpect(MockMvcResultMatchers.status().isOk());
 
+        /*
         int status = mvcResult.getResponse().getStatus();
         assertEquals(201, status);
-        //String content = mvcResult.getResponse().getContentAsString();
-        //assertEquals(content, "Payroll is created successfully");
+        String content = mvcResult.getResponse().getContentAsString();
+        assertEquals(content, "Payroll is created successfully");
+        */
     }
 
     @Test
     void deleteDepartment() throws Exception {
         String uri = "/2";
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)).andReturn();
+        this.mvc.perform(MockMvcRequestBuilders.delete(uri)).andExpect(MockMvcResultMatchers.status().isOk());
+
+        /*
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
-        //String content = mvcResult.getResponse().getContentAsString();
-        //assertEquals(content, "Payroll is deleted successsfully");
+        String content = mvcResult.getResponse().getContentAsString();
+        assertEquals(content, "Payroll is deleted successsfully");
+        */
     }
 
     @Test
     void getDepartmentBydept_id() throws Exception {
         String uri = "/products";
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
-                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+        this.mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andExpect(MockMvcResultMatchers.status().isOk());
 
+        /*
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
-        //String content = mvcResult.getResponse().getContentAsString();
-        //Product[] productlist = super.mapFromJson(content, Product[].class);
-        //assertEquals(content, "Get department by ID");
-    } 
+        String content = mvcResult.getResponse().getContentAsString();
+        Product[] productlist = super.mapFromJson(content, Product[].class);
+        assertEquals(content, "Get department by ID");
+        */
+    }
 }
