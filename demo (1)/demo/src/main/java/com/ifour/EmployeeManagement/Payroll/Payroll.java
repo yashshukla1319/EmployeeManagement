@@ -4,16 +4,15 @@ import javax.persistence.*;
 
 @Entity
 @Table
-
 public class Payroll {
 
     @Id
-    @SequenceGenerator(name = "payroll_sequence",
-            sequenceName = "payroll_sequence",
-            allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "payroll_sequence"
-    )
+//    @SequenceGenerator(name = "payroll_sequence",
+//            sequenceName = "payroll_sequence",
+//            allocationSize = 1)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+//            generator = "payroll_sequence"
+//    )
     private int E_id;
     private int basic;         //Basic
     private int allowance;     //HRA + others
@@ -35,7 +34,7 @@ public class Payroll {
     {
         return E_id;
     }
-    public void setE_id()
+    public void setE_id(int E_id)
     {
         this.E_id = E_id;
     }
@@ -82,4 +81,5 @@ public class Payroll {
                 ", net_salary=" + net_salary +
                 '}';
     }
+
 }

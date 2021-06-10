@@ -18,5 +18,6 @@ class EmployeeConfigTest {
 
     @Test
     void commandLineRunner() {
+        System.out.println("This is test for command line runner");
     }
 }
