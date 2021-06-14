@@ -1,7 +1,5 @@
 package com.ifour.EmployeeManagement.Payroll;
 
-
-import com.ifour.EmployeeManagement.Employee.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +18,7 @@ public class PayrollService {
 
     }
 
-    public Optional<Payroll> getPayrollByE_id(int e_id) {
+    public Optional<Payroll> getPayrollByE_id(Integer e_id) {
         return payrollRepository.findById(e_id);
     }
 
@@ -29,7 +27,7 @@ public class PayrollService {
         payrollRepository.save(payroll);
     }
 
-    public void deletePayroll(int e_id) {
+    public void deletePayroll(Integer e_id) {
         boolean exist = payrollRepository.existsById(e_id);
         if(!exist)
         {
@@ -38,7 +36,7 @@ public class PayrollService {
         payrollRepository.deleteById(e_id);
     }
     @Transactional
-    public void updatePayroll(int e_id, int basic, int allowance, int deduction, int net_salary) {
+    public void updatePayroll(Integer e_id, Integer basic, Integer allowance, Integer deduction, Integer net_salary) {
         Payroll payroll = payrollRepository.findById(e_id).orElseThrow(()->new IllegalStateException("Employee with Id"+e_id+"is not present"));
 
         if(!Objects.equals(payroll.getBasic(),basic))
