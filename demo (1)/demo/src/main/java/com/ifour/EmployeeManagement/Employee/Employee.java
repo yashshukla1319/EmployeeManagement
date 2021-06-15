@@ -1,6 +1,7 @@
 package com.ifour.EmployeeManagement.Employee;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table
@@ -44,7 +45,7 @@ public class Employee {
         this.id = id;
     }
 
-    public String getName() {
+    public Serializable getName() {
         return name;
     }
 
