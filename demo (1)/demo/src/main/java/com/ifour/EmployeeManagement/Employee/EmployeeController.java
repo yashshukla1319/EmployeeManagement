@@ -1,17 +1,23 @@
 package com.ifour.EmployeeManagement.Employee;
 
+import com.ifour.EmployeeManagement.Department.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin(origins="https://8080")
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
+    Department department = new Department();
 
     @Autowired
     public EmployeeService employeeService;
+
+    @Autowired
+    public RestTemplate restTemplate;
 
     @RequestMapping(path = "/")
     public List<Employee> getEmployee()
@@ -34,7 +40,7 @@ public class EmployeeController {
         employeeService.addNewEmployee(employee);
     }
 
-    @RequestMapping(path = "{employeeId}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/{employeeId}", method = RequestMethod.DELETE)
     public void deleteEmployee(@PathVariable("employeeId")Integer employeeId)
     {
         employeeService.deleteEmployee(employeeId);

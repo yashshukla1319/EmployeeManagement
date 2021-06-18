@@ -20,7 +20,7 @@ public class PayrollController {
     }
 
     @RequestMapping(path = "/{E_id}")
-    public Optional<Payroll> getPayrollByE_id(@PathVariable("E_id")Integer E_id)
+    public Optional<Payroll> getPayrollByE_id(@PathVariable("E_id") Integer E_id)
     {
         System.out.println("Get Payroll by ID Called");
         System.out.println(E_id);

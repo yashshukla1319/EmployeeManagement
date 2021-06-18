@@ -1,5 +1,6 @@
 package com.ifour.EmployeeManagement.Department;
 
+import com.ifour.EmployeeManagement.Employee.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,4 +47,18 @@ public class DepartmentService {
         return departmentRepository.findAll();
     }
 
+    /*public void addEmployeeInDepartment(Integer e_id) {
+        departmentRepository.save(e_id);
+    }
+
+    public void removeEmployeeFromDepartment(Integer e_id) {
+        Employee employee = new Employee();
+        int exists = employee.getId();
+        boolean exist = departmentRepository.exists(e_id);
+        if(!exist)
+        {
+            throw new IllegalStateException("Employee with Id does not exists in Department");
+        }
+        departmentRepository.delete(e_id);
+    }*/
 }
