@@ -43,13 +43,9 @@ public class EmployeeService {
     @Transactional
     public void updateEmployee(Integer employeeId, String name, String dept, Integer salary)
     {
-        //System.out.println("Employee ID");
         System.out.println( employeeId);
-        //System.out.println("Name");
         System.out.println(name);
-        //System.out.println("Dept");
         System.out.println(dept);
-        //System.out.println("Salary");
         System.out.println(salary);
         Employee employee = employeeRepository.findById(employeeId).orElseThrow(()->new IllegalStateException("Employee with Id"+employeeId+"is not present"));
 

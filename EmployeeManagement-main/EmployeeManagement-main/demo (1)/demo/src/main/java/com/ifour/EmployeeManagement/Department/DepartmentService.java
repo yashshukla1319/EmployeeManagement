@@ -1,20 +1,16 @@
 package com.ifour.EmployeeManagement.Department;
 
-
 import com.ifour.EmployeeManagement.Employee.Employee;
-import com.ifour.EmployeeManagement.Employee.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class DepartmentService {
     @Autowired
     public DepartmentRepository departmentRepository;
-    @Autowired
-    public EmployeeRepository employeeRepository;
 
 
     public void updateDepartment(Integer dept_id, String dept_name) {
@@ -34,6 +30,11 @@ public class DepartmentService {
     }
 
     public void addDepartment(Department department) {
+        Optional<Department> getDepartmentBydept_id =  departmentRepository.findById(department.getDept_id());
+        if (getDepartmentBydept_id !=null && getDepartmentBydept_id.isPresent()){
+            throw new IllegalStateException("Department with this ID already exists");
+        }
+
         departmentRepository.save(department);
 
     }
@@ -51,8 +52,12 @@ public class DepartmentService {
         return departmentRepository.findAll();
     }
 
-    public List<Employee> getEmployeeById(Integer id) {
-        return (List<Employee>) departmentRepository.findEmployeeById(id);
+    public List<Employee> findEmployeeById() {
+        return findEmployeeById();
+        /*if (findEmployeeById(id) != null && findEmployeeById(id).isEmpty()){
+            throw new IllegalStateException("Employee with this Id is not present");
+        }
+        return (List<Employee>) departmentRepository.findEmployeeById(id);*/
     }
 
     public void deleteEmployeeById(Integer id) {
@@ -62,5 +67,9 @@ public class DepartmentService {
             throw new IllegalStateException("Employee with Id does not exists in Department");
         }
         departmentRepository.deleteEmployeeById(id);
+    }
+
+    public List<Department> getDepartment() {
+        return departmentRepository.findAll();
     }
 }

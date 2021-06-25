@@ -12,7 +12,7 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "employee_sequence"
     )
-    private int id;
+    private Integer id;
     private String name;
     private int salary;
     private int dept_id;
@@ -57,7 +57,7 @@ public class Employee {
         this.salary = salary;
     }
 
-    public int getDept_id() {
+    public  int getDept_id() {
         return dept_id;
     }
 

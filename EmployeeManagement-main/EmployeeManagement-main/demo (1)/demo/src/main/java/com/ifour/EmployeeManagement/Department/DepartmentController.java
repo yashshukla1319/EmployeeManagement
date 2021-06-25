@@ -1,7 +1,6 @@
 package com.ifour.EmployeeManagement.Department;
 
 import com.ifour.EmployeeManagement.Employee.Employee;
-import com.ifour.EmployeeManagement.Employee.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -13,46 +12,31 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/department")
 public class DepartmentController {
-
+    Department department = new Department();
     @Autowired
     public DepartmentService departmentService;
     @Autowired
-    public EmployeeService employeeService;
+    public RestTemplate getrestTemplate;
+
+    @RequestMapping(path = "/depart")
+    public List<Department> getDepartment() {
+        return departmentService.getDepartment();
+    }
 
     @RequestMapping(path = "/{id}")
-    public List<Department> getDepartmentBydept_id(@PathVariable("id")Integer dept_id)
-    {
+    public List<Department> getDepartmentBydept_id(@PathVariable("id") Integer dept_id) {
         return departmentService.getDepartmentBydept_id(dept_id);
-        /*List<EmployeeInDepartment> employeeInDept = Arrays.asList(new EmployeeInDepartment(1,"yash","angular",10000,101));
-        return employeeInDept.stream().map(employee ->{
-            EmployeeInDepartment employeeInDepartment = restTemplate.getForObject
-                    ("http://localhost:8080/employee/"+employee.getDept_id(),EmployeeInDepartment.class);
-            return new Department(employeeInDepartment.getId(),employeeInDepartment.getName(),employeeInDepartment.getDept(),employeeInDepartment.getSalary(),
-                    employeeInDepartment.getDept_id());
-        } )
-                .collect(Collectors.toList());*/
     }
 
 
-    @RequestMapping(path="/", method = RequestMethod.POST)
-    public void addDepartment(@RequestBody Department department)
-    {
-         departmentService.addDepartment(department);
-
-        /*RestTemplate restTemplate = new RestTemplate();
-        List<Employee> employees = Arrays.asList(new Employee(1,"yash","angular",10000,101));
-        return (Stream<List<Employee>>) employees.stream().map(Employee ->{
-            com.ifour.EmployeeManagement.Employee.Employee employee = restTemplate.getForObject
-                    ("http://8080/employee/"+employees.getClass().getName(), com.ifour.EmployeeManagement.Employee.Employee.class);
-            return new Employee(employee.getName(),employee.getDept(),employee.getSalary(),employee.getDept_id());
-        } )
-                .collect(Collectors.toList());*/
+    @RequestMapping(path = "/add", method = RequestMethod.POST)
+    public void addDepartment(@RequestBody Department department) {
+        departmentService.addDepartment(department);
 
     }
 
     @RequestMapping(path = "/{delete}", method = RequestMethod.DELETE)
-    public void deleteDepartment(@PathVariable("delete")Integer dept_id)
-    {
+    public void deleteDepartment(@PathVariable("delete") Integer dept_id) {
         RestTemplate restTemplate = new RestTemplate();
         departmentService.deleteDepartment(dept_id);
     }
@@ -60,32 +44,35 @@ public class DepartmentController {
 
     @RequestMapping(path = "/{put}", method = RequestMethod.PUT)
     public void updateDepartment(@PathVariable("put")
-                               @RequestParam(required = false) Integer dept_id,
-                               @RequestParam(required = false) String dept_name)
-    {
-        departmentService.updateDepartment(dept_id,dept_name);
+                                 @RequestParam(required = false) Integer dept_id,
+                                 @RequestParam(required = false) String dept_name) {
+        departmentService.updateDepartment(dept_id, dept_name);
     }
 
     @RequestMapping(path = "/getemployee/", method = RequestMethod.POST)
-    public List<Employee> getEmployeeById(Integer id)    //Integer employee_id
+    public List<Department> findEmployeeById()    //Integer id removed
     {
-        return departmentService.getEmployeeById(id);
-        /*RestTemplate restTemplate = new RestTemplate();
-        List<EmployeeInDepartment> employeeInDept = Arrays.asList(new EmployeeInDepartment(1,"yash",10000,101));
-        return employeeInDept.stream().map(employee ->{
-            EmployeeInDepartment employeeInDepartment = restTemplate.getForObject
-                    ("http://localhost:8080/employee/"+employee.getDept_id(),EmployeeInDepartment.class);
-            return new Department(employeeInDepartment.getId(),employeeInDepartment.getName(),employeeInDepartment.getSalary(),
-                    employeeInDepartment.getDept_id());
-        } )
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getForObject("http://localhost/employee/", Employee.class);
+        List<Employee> employeeInDept = Arrays.asList(new Employee(1, "yash", 10000, 101),
+                new Employee(2, "gaurav", 15000, 101));
+
+        return employeeInDept.stream().map(department -> {
+            new Department(101, "java");
+
+            Employee employee = restTemplate.getForObject("http://localhost:8080/employee/" + departmentService.getDepartmentBydept_id(101), Employee.class);
+            return new Department(employee.getId(), employee.getName(), employee.getSalary());
+        })
                 .collect(Collectors.toList());
-        //departmentService.addEmployeeInDepartment(employee_id);*/
     }
 
-    @RequestMapping(path ="/employee/remove", method = RequestMethod.DELETE)
-    public void deleteEmployeeById(Integer id)
+
+    @RequestMapping(path ="/removeemployee/{id}", method = RequestMethod.DELETE)
+    public void deleteEmployeeById(@PathVariable("id")Integer id)
     {
         departmentService.deleteEmployeeById(id);
     }
-}
+
+    }
+
 

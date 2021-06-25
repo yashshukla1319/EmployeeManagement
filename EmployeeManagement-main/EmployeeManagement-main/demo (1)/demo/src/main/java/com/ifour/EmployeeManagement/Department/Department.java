@@ -4,19 +4,20 @@ import com.ifour.EmployeeManagement.Employee.Employee;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table
-@EnableJpaRepositories
-@IdClass(Department.class)
+//@IdClass(Department.class)
+//@PrimaryKeyJoinColumns(foreignKey = "depy_Id")
+//@JoinTable
 
-//@SecondaryTable(name = "EmployeeInDepartment", pkJoinColumns= @PrimaryKeyJoinColumns(foreignKey = "dept_id"))
+
 public class Department implements Serializable {
 
-    // removed @Id annotation
+    // removed
+    @Id
 
     @SequenceGenerator(name = "department_sequence",
             sequenceName = "department_sequence",
@@ -25,16 +26,15 @@ public class Department implements Serializable {
             generator = "department_sequence"
     )
 
-    @Column
-    @Id
-    private int dept_id;
+    //@Id
+    private Integer dept_id;
     private String dept_name;
     @JoinColumn(name = "id",updatable = false,insertable = false)
-    private Integer id;
-    @NotFound(action = NotFoundAction.EXCEPTION)
-    @ManyToOne
-    @JoinColumn(name = "dept_id",updatable = false,insertable = false)
-    private Employee employee;
+    private int id;
+    //@NotFound(action = NotFoundAction.EXCEPTION)
+    //@ManyToOne
+    //@JoinColumn(name = "dept_id",updatable = false,insertable = false)
+    //private Employee employee;
 
 
     public Department() {
@@ -47,6 +47,9 @@ public class Department implements Serializable {
 
     public Department(String dept_name) {
         this.dept_name = dept_name;
+    }
+
+    public Department(int id, String name, int salary) {
     }
 
 
