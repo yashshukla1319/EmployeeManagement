@@ -5,9 +5,9 @@
 ## *APIs*
 #### CRUD for employee REST API
 - CRUD for a single employee `done`
-- Get employees by list of IDs
-- Employee search by criteria ( name, department )
-- Paginated employee search
+- Get employees by list of IDs`done`
+- Employee search by criteria ( name, department )`done`
+- Paginated employee search`done`
 
 #### CRUD for department REST API
 - CRUD for single department
