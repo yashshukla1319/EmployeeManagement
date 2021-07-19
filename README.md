@@ -18,8 +18,8 @@
 - For counting salary based on number of unpaid leaves
 
 #### Analytics REST API
-- Total salary payout by department
-- Average paid and unpaid leaves by department
+- Total salary payout by department`done`
+- Average paid and unpaid leaves by department`done`
 
 
 ## *Tech stack and tools*
